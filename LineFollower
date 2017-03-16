@@ -8,10 +8,7 @@
  * Take note it is V1.2, not V1.1(Outdated)
  */
 #include <IIC1.h>
-#include <RoboClaw.h>
 
-DFrobotEdison Mot1;
-DFrobotEdison Mot2;
 int sen1, sen2, sen3;
 int state = 1;
 /*State 1 is normal
@@ -21,8 +18,6 @@ State 4 is slowdown
 State 5 is accelerated*/
 
 void setup() {
-  Mot1.begin(M1); /*Initializes the motor drive 1*/
-  Mot2.begin(M2); /*Initializes the motor drive 2*/
   Serial.begin(9600);
 }
 
@@ -30,21 +25,6 @@ void loop() {
   sen1 = analogRead(A0); /*Sensor 1 readings*/
   sen2 = analogRead(A1); /*Sensor 2 readings*/
   sen3 = analogRead(A2); /*Sensor 3 readings*/
-  Mot1.move(); /*Starts Motor 1 and rotates them at max angular velocity*/
-  Mot2.move(); /*Starts Motor 2 and rotates them at max angular velocity
-
-  /*Turning Test, I make them both turn different direction, cause fun. Also, see the speed difference*/
-  Mot1.setDirection(ANTICLOCKWISE); /*Motor1 anticlockwise rotation*/
-  Mot1.setSpeed(100); /*Moto1 speed */
-  Mot2.setDirection(CLOCKWISE); /*Motor2 clockwise rotation*/
-  Mot2.setSpeed(100); /*Motor2 speed*/
-  
-  delay(3000); /* 3s delay, if the motor suddenly stop turning, NOT SPOILT!*/
-  
-  Mot1.stop(); /*Stop Motor1*/
-  Mot2.stop(); /*Stop Motor2*/
-  
-  delay(3000);
 
   /*============================================
    * ===========================================
@@ -71,29 +51,6 @@ void loop() {
    =============================================*/
 
   /*PID Control*/
-  /*unsigned long lastLoopTime;
-  float Input, Output, DesiredPoint;
-  float errSum, lastErr;
-  float kp, ki, kd;
-  void Compute()
-  {
-     /*How long since we last calculated
-     unsigned long now = millis();
-     float timeChange = (float)(now - lastLoopTime);
-    
-     /*Compute all the working error variables
-     float error = DesiredPoint - Input;
-     errSum += (error * timeChange);
-     float dErr = (error - lastErr) / timeChange;
-    
-     /*Compute PID Output
-     Output = kp * error + ki * errSum + kd * dErr;
-    
-     /*Remember some variables for next time
-     lastErr = error;
-     lastLoopTime = now;
-  }*/
-
   int Kp = 120; /*Proportional Gain*/
   int Ki = 100; /*Integral Gain*/
   int Kd = 100; /*Derivative Gain*/
