@@ -125,11 +125,6 @@ void loop() {
   Serial.print("I:"+I);
   Serial.print("D:"+D);
 
-/*Information from Romeo*/
-  Serial.print("P:"+P);
-  Serial.print("I:"+I);
-  Serial.print("D:"+D);
-
   const int maximum = 100;
   switch (state) {
     case 1:
