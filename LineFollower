@@ -16,10 +16,21 @@ int state = 1;
 //State 3 is turn right
 State 4 is slowdown
 State 5 is accelerated*/
+const int motorPin2  = 10
+const int motorPin4  = 5
+void setup(){
+ 
+    //Set pins as outputs
+    
+    pinMode(motorPin2, OUTPUT);
+    
+    pinMode(motorPin4, OUTPUT);
+    
+    analogWrite(motorPin2, 100);
+    analogWrite(motorPin4, 100);
+    Serial.begin(9600);
+    }
 
-void setup() {
-  Serial.begin(9600);
-}
 
 void loop() {
   sen1 = analogRead(A0); /*Sensor 1 readings*/
@@ -89,18 +100,20 @@ void loop() {
         if (PID > maximum) PID = maximum;
         Serial.print("Motor1:"+maximum);
         Serial.print("Motor2:"+maximum-PID);
-        Mot1.setDirection(CLOCKWISE); /*Motor1 anticlockwise rotation*/
-        Mot1.setSpeed(maximum); /*Moto1 speed */
-        Mot2.setDirection(CLOCKWISE);
-        Mot2.setSpeed(maximum-PID);
+        Speed1 = map(maximum, 0 , 180, 0, 150);
+        Speed2 = map(maximum-PID, 0 , 180, 0 ,150);
+        analogWrite(motorPin2, Speed1);
+        analogWrite(motorPin4, Speed2);
+
       } else {
         if (PID < -maximum) PID = -maximum;
         Serial.print("Motor1:"+maximum+PID);
         Serial.print("Motor2:"+maximum);
-        Mot1.setDirection(CLOCKWISE); /*Motor1 anticlockwise rotation*/
-        Mot1.setSpeed(maximum+PID); /*Moto1 speed */
-        Mot2.setDirection(ANTICLOCKWISE);
-        Mot2.setSpeed(maximum);
+        Speed3= map(maximum+PID, 0 , 180, 0 ,150);
+        Speed4= map(maximum, 0 , 180, 0, 150);
+        analogWrite(motorPin2, Speed3);
+        analogWrite(motorPin4, Speed4);       
+
       }
       break;
     case 2:
