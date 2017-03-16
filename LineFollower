@@ -53,6 +53,9 @@ void loop() {
     } else { /*Black lines don't detect any sensors, accelerate away, on dotted lines*/
       state = 5;
     }
+    if ( 500 < sen1) && (500 < sen 2) {state =6;}
+    if ( 500 < sen1) && (500 < sen 3) {state =7;}
+   
    }
 
   /*============================================
@@ -116,8 +119,47 @@ void loop() {
 
       }
       break;
-    case 2:
+    case 6:
+      if (PID > 0) {
+        if (PID > maximum) PID = maximum;
+        Serial.print("Motor1:"+maximum);
+        Serial.print("Motor2:"+maximum-PID);
+        Speed1 = map(maximum, 0 , 180, 0, 150);
+        Speed2 = map(maximum-PID, 0 , 180, 0 ,150);
+        analogWrite(motorPin2, Speed1);
+        analogWrite(motorPin4, Speed2);
+
+      } else {
+        if (PID < -maximum) PID = -maximum;
+        Serial.print("Motor1:"+maximum+PID);
+        Serial.print("Motor2:"+maximum);
+        Speed3= map(maximum+PID, 0 , 180, 0 ,150);
+        Speed4= map(maximum, 0 , 180, 0, 150);
+        analogWrite(motorPin2, Speed3);
+        analogWrite(motorPin4, Speed4);       
+
+      }
       break;
+    case 7:
+      if (PID > 0) {
+        if (PID > maximum) PID = maximum;
+        Serial.print("Motor1:"+maximum);
+        Serial.print("Motor2:"+maximum-PID);
+        Speed1 = map(maximum, 0 , 180, 0, 150);
+        Speed2 = map(maximum-PID, 0 , 180, 0 ,150);
+        analogWrite(motorPin2, Speed1);
+        analogWrite(motorPin4, Speed2);
+
+      } else {
+        if (PID < -maximum) PID = -maximum;
+        Serial.print("Motor1:"+maximum+PID);
+        Serial.print("Motor2:"+maximum);
+        Speed3= map(maximum+PID, 0 , 180, 0 ,150);
+        Speed4= map(maximum, 0 , 180, 0, 150);
+        analogWrite(motorPin2, Speed3);
+        analogWrite(motorPin4, Speed4);       
+
+      }  
     default:
       break;
    }
