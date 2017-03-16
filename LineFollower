@@ -125,15 +125,30 @@ void loop() {
   Serial.print("I:"+I);
   Serial.print("D:"+D);
 
+/*Information from Romeo*/
+  Serial.print("P:"+P);
+  Serial.print("I:"+I);
+  Serial.print("D:"+D);
+
   const int maximum = 100;
   switch (state) {
     case 1:
       if (PID > 0) {
         if (PID > maximum) PID = maximum;
-        Mot1.setDirection(ANTICLOCKWISE); /*Motor1 anticlockwise rotation*/
+        Serial.print("Motor1:"+maximum);
+        Serial.print("Motor2:"+maximum-PID);
+        Mot1.setDirection(CLOCKWISE); /*Motor1 anticlockwise rotation*/
         Mot1.setSpeed(maximum); /*Moto1 speed */
-        Mot2.setDirection(ANTICLOCKWISE);
+        Mot2.setDirection(CLOCKWISE);
         Mot2.setSpeed(maximum-PID);
+      } else {
+        if (PID < -maximum) PID = -maximum;
+        Serial.print("Motor1:"+maximum+PID);
+        Serial.print("Motor2:"+maximum);
+        Mot1.setDirection(CLOCKWISE); /*Motor1 anticlockwise rotation*/
+        Mot1.setSpeed(maximum+PID); /*Moto1 speed */
+        Mot2.setDirection(ANTICLOCKWISE);
+        Mot2.setSpeed(maximum);
       }
       break;
     case 2:
